@@ -185,14 +185,17 @@ class ViewPagerAndroid extends React.Component {
     if (this.props.onPageScroll) {
       this.props.onPageScroll(e);
     }
-    if (this.props.keyboardDismissMode === 'on-drag') {
-      dismissKeyboard();
-    }
   };
 
   _onPageScrollStateChanged = (e: Event) => {
+    var state = e.nativeEvent.pageScrollState;
+
+    if (state === 'dragging' && this.props.keyboardDismissMode === 'on-drag') {
+      dismissKeyboard();
+    }
+
     if (this.props.onPageScrollStateChanged) {
-      this.props.onPageScrollStateChanged(e.nativeEvent.pageScrollState);
+      this.props.onPageScrollStateChanged(state);
     }
   };
 
